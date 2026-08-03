@@ -30,12 +30,26 @@ const messages = [
     "Це маленьке повідомлення просто для тебе🌼",
     "Я хотів залишити тобі щось приємне",
     "Сподіваюсь, колись ти відкриєш це і знову посміхнешся🌼",
-    "букет ромашок тобі🌼🌼🌼🌼🌼🌼🌼🌼🌼🌼🌼🌼🌼🌼🌼"
-
+    {
+    text: "букет ромашок тобі 🌼",
+    image: "daisy.png"
+}
 
 ];
 
-let randomMessage = Math.floor(Math.random() * messages.length);
+let randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+const messageElement = document.getElementById("message");
+
+if (typeof randomMessage === "object") {
+    messageElement.innerHTML = `
+        ${randomMessage.text}
+        <br>
+        <img src="${randomMessage.image}" class="flower">
+    `;
+} else {
+    messageElement.innerHTML = randomMessage;
+}
 
 
 document.getElementById("message").innerHTML = messages[randomMessage];
