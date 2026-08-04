@@ -112,3 +112,47 @@ function createEmoji() {
 
 
 setInterval(createEmoji, 700);
+const targetDate = new Date("2026-08-05T00:00:00");
+
+const button = document.getElementById("nextBtn");
+
+
+function updateCountdown() {
+
+    const now = new Date();
+    const diff = targetDate - now;
+
+
+    if (diff <= 0) {
+
+        button.disabled = false;
+        button.innerHTML = "💌 Відкрити";
+
+        button.onclick = () => {
+            window.location.href = "page2.html";
+        };
+
+        clearInterval(timer);
+
+        return;
+    }
+
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+    const seconds = Math.floor((diff / 1000) % 60);
+
+
+    button.innerHTML =
+        `Part 2🖤🖤🖤<br>
+        ${days}д ${hours}г ${minutes}хв ${seconds}с`;
+}
+
+
+updateCountdown();
+
+const timer = setInterval(updateCountdown, 1000);
