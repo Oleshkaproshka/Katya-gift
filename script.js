@@ -32,18 +32,17 @@ const messages = [
 "сподіваюсь колись ти відкриєш це і знову посміхнешся 🌼",
 
 {
-    text: "Букет ромашок тобі ",
-    image: "daisy.png"
+text: "Букет ромашок тобі ",
+image: "daisy.png"
 },
 {
-    text: "Ми?",
-    image: "kosak.png"
+text: "Ми?",
+image: "kosak.png"
 },
 {
-    text: "Сьогодні побалую",
-    image: "klush.png"
+text: "Сьогодні побалую",
+image: "klush.png"
 }
-
 ];
 
 
@@ -55,9 +54,9 @@ const messageElement = document.getElementById("message");
 if (typeof randomMessage === "object") {
 
     messageElement.innerHTML = `
-        ${randomMessage.text}
-        <br>
-        <img src="${randomMessage.image}" class="flower">
+    ${randomMessage.text}
+    <br>
+    <img src="${randomMessage.image}" class="flower">
     `;
 
 } else {
@@ -70,48 +69,51 @@ if (typeof randomMessage === "object") {
 
 function createEmoji() {
 
-    let emojis = [
-        "❤️‍🩹",
-        "💚",
-        "🩵",
-        "💜",
-        "🩶",
-        "🧡",
-        "🖤",
-        "🤍",
-        "🌼",
-        "✨"
-    ];
+let emojis = [
+"❤️‍🩹",
+"💚",
+"🩵",
+"💜",
+"🩶",
+"🧡",
+"🖤",
+"🤍",
+"🌼",
+"✨"
+];
 
 
-    let emoji = document.createElement("span");
+let emoji = document.createElement("span");
 
-    emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
 
-    emoji.classList.add("floating");
+emoji.classList.add("floating");
 
+emoji.style.left = Math.random() * 100 + "vw";
 
-    emoji.style.left = Math.random() * 100 + "vw";
+emoji.style.fontSize = (Math.random() * 15 + 15) + "px";
 
-    emoji.style.fontSize = (Math.random() * 15 + 15) + "px";
-
-    emoji.style.animationDuration = (Math.random() * 3 + 4) + "s";
-
-
-    document.body.appendChild(emoji);
+emoji.style.animationDuration = (Math.random() * 3 + 4) + "s";
 
 
+document.body.appendChild(emoji);
 
-    setTimeout(() => {
 
-        emoji.remove();
+setTimeout(() => {
 
-    }, 7000);
+    emoji.remove();
+
+}, 7000);
 
 }
 
 
 setInterval(createEmoji, 700);
+
+
+
+// ТАЙМЕР
+
 const targetDate = new Date("2026-08-05T00:00:00");
 
 const button = document.getElementById("nextBtn");
@@ -119,40 +121,71 @@ const button = document.getElementById("nextBtn");
 
 function updateCountdown() {
 
-    const now = new Date();
-    const diff = targetDate - now;
+const now = new Date();
+
+const diff = targetDate - now;
 
 
-    if (diff <= 0) {
 
-        button.disabled = false;
-        button.innerHTML = "💌 Відкрити";
-
-        button.onclick = () => {
-            window.location.href = "page2.html";
-        };
-
-        clearInterval(timer);
-
-        return;
-    }
+if (diff <= 0) {
 
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    button.disabled = false;
 
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-
-    const seconds = Math.floor((diff / 1000) % 60);
+    button.innerHTML = "💌 Відкрити";
 
 
-    button.innerHTML =
-        `Part 2🖤🖤🖤<br>
-        ${days}д ${hours}г ${minutes}хв ${seconds}с`;
+  button.onclick = () => {
+
+    button.style.display = "none";
+
+    document.getElementById("codeBox").style.display = "block";
+
+};
+
+
+    clearInterval(timer);
+
+    return;
+
 }
+
+
+
+const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+const seconds = Math.floor((diff / 1000) % 60);
+
+
+
+button.innerHTML = 
+`Part 2🖤🖤🖤<br>
+${days}д ${hours}г ${minutes}хв ${seconds}с`;
+
+}
+
 
 
 updateCountdown();
 
 const timer = setInterval(updateCountdown, 1000);
+function checkCode() {
+
+    const code = document.getElementById("secretCode").value;
+
+    if (code === "хреста розпяли") {
+
+        window.location.href = "page2.html";
+
+    } else {
+
+        document.getElementById("error").innerHTML =
+        "Неправильний код 🖤";
+
+    }
+
+}
